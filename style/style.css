@@ -1,0 +1,132 @@
+*{
+    overflow: hidden;
+    color: #E0E1DD;
+    font-family: 'Roboto', sans-serif;
+}
+html,body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #1B263B;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: 100vh;
+}
+    
+.left {
+    grid-area: 2 / 2 / 6 / 5;
+}
+.right { grid-area: 2 / 6 / 6 / 9;}
+
+.logo { grid-area: 1 / 1 / 2 / 2; }
+.text { grid-area: 1 / 3 / 2 / 8;}
+.text>p{
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 30px;
+    text-shadow: #0D1B2A 4px 4px 4px;
+} 
+
+.left, .right{
+    border-radius: 70px;
+    background: linear-gradient(145deg, #f0f1ec, #cacbc7);
+    box-shadow:  6px 6px 0px #bcbdba,
+    -6px -6px 0px #ffffff;
+}
+
+.left, .right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.left, .left>*, .right, .right>*{
+    color: #0D1B2A;
+}
+.left>*, .right>*{
+    margin: 30px;
+    text-align: center;
+    font-size: 2em;
+    border: none;
+    border-radius: 10px;
+}
+.left>button, .right>button{
+    font-size: 1.5em;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #f0f1ec, #cacbc7);
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #0D1B2A;
+}
+.left>button:hover, .right>button:hover{
+    background: linear-gradient(145deg, #cacbc7, #f0f1ec);
+}
+.left>p, .right>p{
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+    
+}
+
+.logo>p{
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 30px;
+    font-family: 'Roboto', sans-serif;
+    background: rgba(255,255,255,0.1);
+    box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    border-radius: 4px;
+    margin-left: 20px;
+    padding: 5px;
+}
+
+/* error display */
+.register-error { grid-area: 6 / 6 / 7 / 9; }
+.login-error { grid-area: 6 / 2 / 7 / 5;}
+
+.login-error, .register-error{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* Animated checkmark */
+
+.checkmark { grid-area: 3 / 4 / 6 / 7; } 
+
+.wrapper {
+    width: 100px;
+    margin: 4em auto 0;
+  }
+  
+.checkmark {
+    stroke: #cacbc7;
+    stroke-dashoffset: 745.74853515625;
+    stroke-dasharray: 745.74853515625;
+    animation: dash 2s ease-out forwards infinite;
+}
+  
+@keyframes dash {
+    0% {
+      stroke-dashoffset: 745.74853515625;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+}

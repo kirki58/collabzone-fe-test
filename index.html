@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollabZone</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <div class="parent">
+        <form class="left" action="" method="post" id = "loginForm">
+            <p>LOGIN</p>
+            <input type="email" name="loginEmail" id="login_email" placeholder="E-Mail" required>
+            <input type="password" name="loginPassword" id="login_password" placeholder="Password" required>
+            <button id ="login_button">Sign In</button>
+        </form>
+        <form class="right" action="" method="post" id ="registerForm">
+            <p>REGISTER</p>
+            <input type="text" name="registerName" id="register_name" placeholder="Name" required>
+            <input type="email" name="registerEmail" id="register_email" placeholder="E-Mail" required>
+            <input type="password" name="registerPassword" id="register_password" placeholder="Password" required>
+            <input type="password" name="validatePassword" id="validate_password" placeholder="Validate Password" required>
+            <button id="register_button">Sign Up</button>
+        </form>
+        <div class="logo"><p>CollabZone</p></div>
+        <div class="text">
+            <p>COLLABORATE AND ACHIEVE</p>
+        </div> 
+        <div class="login-error" id="login_error"></div>
+        <div class="register-error" id="register_error"></div>
+    </div> 
+    <script src="fetch.js"></script>
+</body>
+</html> 

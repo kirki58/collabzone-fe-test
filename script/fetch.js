@@ -165,3 +165,22 @@ class CustomError extends Error {
         this.name = this.constructor.name;
     }
 }
+
+function redirect_validated(){
+    if(getCookie("token") != null ){
+        fetch("https://localhost:7217/api/users/is-valid-token", {
+            method: 'GET',
+            headers: {
+                "Authorization": "Bearer " + getCookie("token")
+            }
+        })
+        .then(response => {
+            if(response.ok){
+                window.location.href = "http://localhost:5500/home.html";
+            }
+            return response.json();
+        })
+    }
+}
+
+window.addEventListener('load', redirect_validated);

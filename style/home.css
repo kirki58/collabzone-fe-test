@@ -1,0 +1,144 @@
+.parent {
+    display: grid;
+    grid-template-columns: 0.5fr repeat(8, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+.projects {
+    grid-area: 1 / 1 / 7 / 2;
+    background-color: #0D1B2A;
+    overflow-y: scroll;
+}
+.tasks {
+    grid-area: 1 / 8 / 7 / 10;
+}
+.modal{
+    border-radius: 70px;
+    background: linear-gradient(145deg, #f0f1ec, #cacbc7);
+    box-shadow:  6px 6px 0px #bcbdba,
+    -6px -6px 0px #ffffff;
+
+    grid-area: 2 / 4 / 6 / 7;
+    z-index: 2;
+    display: none;
+}
+.modal-content{
+    overflow-y : scroll;
+}
+.modal-content *{
+    color: #0D1B2A !important;
+    font-size: 1.2em;
+}
+.modal-content>p *{
+    color: #0D1B2A !important;
+    font-size: 1.2em;
+
+}
+.modal-content>p i{
+    font-size: 0.8em;
+}
+.modal-content>p i:hover{
+    color: #0d1b2a4d !important;
+    cursor: pointer;
+}
+.modal-content{
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    color: #0D1B2A;
+}
+.modal-content input{
+    color: #0D1B2A;
+    width: 80%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+}
+#closeBtn{
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #0D1B2A;
+    position: relative;
+    left: 90%;
+    top: 20px;
+}
+.top{
+    height: 30%;
+    grid-area: 1 / 2 / 2 / 8;
+    z-index: 1;
+    background-color: #1B263B;
+    display: flex;
+    justify-content: space-around;
+    padding-left: 20px;
+    padding-right: 20px; 
+}
+.top>*{
+    margin:10px
+}
+.top>a{
+    text-decoration: none;
+    font-size: 1.2em;
+    letter-spacing: 1px;
+    color: white;
+}
+.top>a:hover{
+    color: rgba(255, 255, 255, 0.507);
+}
+.top>a>img{
+    border-radius: 5px;
+    position: relative;
+    top: 3px;
+    height: 20px;
+}
+.top>a>i:hover{
+    color: rgba(255, 255, 255, 0.507);
+
+}
+
+.join_project, .create_project{
+    padding: 50px;
+    background-color: #415A77;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.join_project {
+    grid-area: 1 / 2 / 7 / 5;
+}
+.create_project {
+    grid-area: 1 / 5 / 7 / 8;
+}
+
+.project{
+    margin-top: 10px;
+    margin-left: 5px;
+    width: 100%;
+    height: 16.6%;
+}
+.project>a>img{
+    margin-left: 15px;
+    height: 60px;
+    border-radius: 20px;
+}
+.project>a>img:hover{
+    filter: brightness(0.8);
+}
+.project>p{
+    position: relative;
+    bottom: 10px;
+    margin-left: 15px;
+}
+.tasks{
+    background-color: #0D1B2A;
+    overflow-y: scroll
+}
+.task{
+    padding: 20px;
+    border-bottom: 1px solid #778DA9;
+}

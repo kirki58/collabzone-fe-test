@@ -1,1 +1,149 @@
-user home
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollabZone</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="parent">
+        <div class="top">
+            <a href="#" id="profileBtn"><img src="image.png" alt=""> Profile</a>
+            <a href="">Tasks</a>
+            <a href=""><i style="position: relative;top: 3px;" class="fa-solid fa-right-from-bracket"></i></a>
+        </div>
+
+        <div class="modal" id="modal">
+            <i id="closeBtn" class="fa-solid fa-xmark"></i>
+            <div class="modal-content" id="modal-content">
+                <p><strong>Name: </strong> <span id="userName"></span> <i id="EditNameBtn" class="fa-solid fa-pen-to-square"></i></p>
+                <form id="nameForm" style="display: none;" action="">
+                    <input id="newName" type="text" required>
+                    <input type="submit" value="Submit">
+                </form>
+                <p id = "nameError"></p>
+                <br>
+
+                <p><strong>(Change your password)</strong> </span> <i id="ChangePasswordBtn" class="fa-solid fa-pen-to-square"></i></p>
+                <form id="passwordForm" style="display: none;" action="">
+                    <input id="old_password" type="password" placeholder="Old Password" required>
+                    <input id="new_password" type="password" placeholder="New Password" required>
+                    <input id="confirm_password" type="password" placeholder="Confirm New Password" required>
+                    <input type="submit" value="Submit">
+                </form>
+                <p id="passwordError"></p>
+                <br>
+
+                <p><strong>(Change your PP)</strong> <i id ="imgSelectorBtn" class="fa-solid fa-pen-to-square"></i></p>
+                <form id="imageForm" style="display: none;" action="">
+                    <input id="imgSelectorInput"style="margin: 0;padding: 0; display: none;" type="file" accept="image/*"">
+                    <input type="submit" value="Submit" required accept=".jpg,.jpeg,.png,.webp,.svg">
+                </form>
+            </div>
+        </div>
+
+        <div class="projects">
+            <div class="project">
+                <a href="" ><img src="image.png" alt=""></a>
+                <p>Project Name</p>
+            </div>
+
+            <div class="project">
+                <a href="" ><img src="image.png" alt=""></a>
+                <p>Project Name</p>
+            </div>
+
+            <div class="project">
+                <a href="" ><img src="image.png" alt=""></a>
+                <p>Project Name</p>
+            </div>
+
+            <div class="project">
+                <a href="" ><img src="image.png" alt=""></a>
+                <p>Project Name</p>
+            </div>
+
+            <div class="project">
+                <a href="" ><img src="image.png" alt=""></a>
+                <p>Project Name</p>
+            </div>
+
+            <div class="project">
+                <a href="" ><img src="image.png" alt=""></a>
+                <p>Project Name</p>
+            </div>
+            
+            <div class="project">
+                <a href="" ><img src="image.png" alt=""></a>
+                <p>Project Name</p>
+            </div>
+        </div>
+
+        <div class="join_project">
+            <form class="left" action="" method="post" id = "joinForm">
+                <p>JOIN</p>
+                <input type="text" placeholder="Invite token" required>
+                <button id ="join_button">Sign In</button>
+            </form>
+        </div>
+        <div class="create_project">
+            <form class="right" action="" method="post" id = "createForm">
+                <p>CREATE</p>
+                <input type="text" placeholder="Project Name" required>
+                <button id ="create_button">Sign In</button>
+            </form>
+        </div>
+        <div class="tasks">
+            <div class="task">
+                <p><strong>From:</strong> Project name</p>
+                <p><strong>Task Header:</strong> myheadertask</p>
+                <p><strong>Task Description:</strong> <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, praesentium minus. Praesentium harum dolore officia, minima similique, molestiae expedita enim obcaecati ea animi fugiat ullam eius error aspernatur numquam eveniet architecto aliquid voluptates. Laboriosam deserunt, quos temporibus expedita, natus error odit, alias numquam quae eum tenetur deleniti et perferendis officia?</p>
+                <p><strong>Task Deadline:</strong> 20.06.2024 <br> <i>(3 days)</i></p>
+            </div>
+        </div>
+        <div class="tasks">
+            <div class="task">
+                <p><strong>From:</strong>Project name</p>
+                <p><strong>Task Header:</strong> myheadertask</p>
+                <p><strong>Task Description:</strong> <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, praesentium minus. Praesentium harum dolore officia, minima similique, molestiae expedita enim obcaecati ea animi fugiat ullam eius error aspernatur numquam eveniet architecto aliquid voluptates. Laboriosam deserunt, quos temporibus expedita, natus error odit, alias numquam quae eum tenetur deleniti et perferendis officia?</p>
+                <p><strong>Task Deadline:</strong> 20.06.2024 <br> <i>(3 days)</i></p>
+            </div>
+        </div>
+        <div class="tasks">
+            <div class="task">
+                <p><strong>From:</strong> <br> Project name</p>
+                <p><strong>Task Header:</strong> <br> myheadertask</p>
+                <p><strong>Task Description:</strong> <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, praesentium minus. Praesentium harum dolore officia, minima similique, molestiae expedita enim obcaecati ea animi fugiat ullam eius error aspernatur numquam eveniet architecto aliquid voluptates. Laboriosam deserunt, quos temporibus expedita, natus error odit, alias numquam quae eum tenetur deleniti et perferendis officia?</p>
+                <p><strong>Task Deadline:</strong> <br> 20.06.2024 <br> <i>(3 days)</i></p>
+            </div>
+            <div class="task">
+                <p><strong>From:</strong> <br> Project name</p>
+                <p><strong>Task Header:</strong> <br> myheadertask</p>
+                <p><strong>Task Description:</strong> <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, praesentium minus. Praesentium harum dolore officia, minima similique, molestiae expedita enim obcaecati ea animi fugiat ullam eius error aspernatur numquam eveniet architecto aliquid voluptates. Laboriosam deserunt, quos temporibus expedita, natus error odit, alias numquam quae eum tenetur deleniti et perferendis officia?</p>
+                <p><strong>Task Deadline:</strong> <br> 20.06.2024 <br> <i>(3 days)</i></p>
+            </div>
+            <div class="task">
+                <p><strong>From:</strong> <br> Project name</p>
+                <p><strong>Task Header:</strong> <br> myheadertask</p>
+                <p><strong>Task Description:</strong> <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, praesentium minus. Praesentium harum dolore officia, minima similique, molestiae expedita enim obcaecati ea animi fugiat ullam eius error aspernatur numquam eveniet architecto aliquid voluptates. Laboriosam deserunt, quos temporibus expedita, natus error odit, alias numquam quae eum tenetur deleniti et perferendis officia?</p>
+                <p><strong>Task Deadline:</strong> <br> 20.06.2024 <br> <i>(3 days)</i></p>
+            </div>
+            <div class="task">
+                <p><strong>From:</strong> <br> Project name</p>
+                <p><strong>Task Header:</strong> <br> myheadertask</p>
+                <p><strong>Task Description:</strong> <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, praesentium minus. Praesentium harum dolore officia, minima similique, molestiae expedita enim obcaecati ea animi fugiat ullam eius error aspernatur numquam eveniet architecto aliquid voluptates. Laboriosam deserunt, quos temporibus expedita, natus error odit, alias numquam quae eum tenetur deleniti et perferendis officia?</p>
+                <p><strong>Task Deadline:</strong> <br> 20.06.2024 <br> <i>(3 days)</i></p>
+            </div>
+        </div>
+    </div> 
+    <script type="module" src="script/home.js"></script>
+    <script type="module" src="script/redirect_unvalidated.js"></script>
+    <script type="module" src="script/cookie.js"></script>
+    <script type="module" src="script/decode_token.js"></script>
+    <script type="module" src="script/custom_error.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html> 

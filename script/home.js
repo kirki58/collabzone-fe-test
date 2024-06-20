@@ -5,6 +5,7 @@ import { GetDecodedToken } from './decode_token.js';
 import { CustomError } from './custom_error.js';
 
 window.addEventListener('load', redirect_unvalidated);
+window.addEventListener('load', getProfileImage);
 
 
 $(document).ready(function() {
@@ -102,13 +103,13 @@ document.getElementById('passwordForm').addEventListener('submit', async functio
 
     var token = getCookie("token");
     if(token == null){
-        window.location.href = "http://localhost:5500/login.html";
+        window.location.href = "http://localhost:5500/index.html";
         return;
     }
 
     var user = await GetDecodedToken();
     if(user == null){
-        window.location.href = "http://localhost:5500/login.html";
+        window.location.href = "http://localhost:5500/index.html";
         return;
     }
     var user_id = user.sub;
@@ -151,4 +152,191 @@ document.getElementById('passwordForm').addEventListener('submit', async functio
             console.error(error);
         }
     });
+})
+
+document.getElementById('imageForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    var token = getCookie("token");
+    if(token == null){
+        window.location.href = "http://localhost:5500/index.html";
+        return;
+    }
+
+    const fileInput = document.getElementById('imgSelectorInput');
+
+    if(fileInput.files.length == 0){
+        alert("Please select an image");
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const user = await GetDecodedToken();
+    const user_id = user.sub;
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('id', user_id);
+
+    if(await doesImageExist() == false){
+        await fetch("https://localhost:7217/api/images", {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            body: formData
+        })
+        .then(response => {
+            if(!response.ok){
+                throw new CustomError("Failed to upload image");
+            }
+            alert("Image uploaded successfully");
+            window.location.reload();
+        })
+        .catch(error => {
+            if(error instanceof CustomError){
+                console.error(error.message);
+            }
+            else{
+                console.error("Failed to upload image");
+            }
+        })
+    }
+    else{
+        await fetch("https://localhost:7217/api/images/" + user_id, {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            body: formData
+        })
+        .then(response => {
+            if(!response.ok){
+                throw new CustomError("Failed to update image");
+            }
+            alert("Image updated successfully");
+            window.location.reload();
+        })
+        .catch(error => {
+            if(error instanceof CustomError){
+                console.error(error.message);
+            }
+            else{
+                console.error("Failed to update image");
+            }
+        })
+    }
+})
+
+async function getProfileImage(){
+    var token = getCookie("token");
+    if(token == null){
+        window.location.href = "http://localhost:5500/index.html";
+        return;
+    }
+
+    const user_id = (await GetDecodedToken()).sub;
+
+    return await fetch("https://localhost:7217/api/images/" + user_id, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => {
+        if(!response.ok){
+            throw new CustomError("Failed to get image");
+        }
+        return response.blob();
+    })
+    .then(blob => {
+        const url = URL.createObjectURL(blob);
+
+        // Set the image sources here
+        document.getElementById("profileImg").src = url;
+    })
+    .catch(error => {
+        if(error instanceof CustomError){
+            console.error(error.message);
+        }
+        else{
+            console.error("Failed to get image");
+        }
+    })
+
+}
+
+async function doesImageExist(){
+    var token = getCookie("token");
+    if(token == null){
+        window.location.href = "http://localhost:5500/index.html";
+        return;
+    }
+
+    const user_id = (await GetDecodedToken()).sub;
+
+    return await fetch("https://localhost:7217/api/images/does-image-exist/" + user_id, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => {
+        if(!response.ok){
+            throw new CustomError("Failed to check for image");
+        }
+        console.log("Image found");
+        return true;
+    })
+    .catch(error => {
+        if(error instanceof CustomError){
+            console.warn(error.message);
+        }
+        else{
+            console.warn("Image not found");
+        }
+        return false;
+    })
+}
+
+
+document.getElementById("createForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    var token = getCookie("token");
+    if(token == null){
+        window.location.href = "http://localhost:5500/index.html";
+        return;
+    }
+
+    const project_name = document.getElementById("projectName").value;
+    const user_id = (await GetDecodedToken()).sub;
+
+    var formData = new FormData();
+    formData.append("name", project_name);
+    formData.append("user_id", user_id);
+
+    await fetch("https://localhost:7217/api/projects", {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
+        body: formData
+    })
+    .then(response => {
+        if(!response.ok){
+            throw new CustomError("Failed to create project");
+        }
+        alert("Project created successfully");
+        window.location.reload();
+        return response.text();
+    })
+    .catch(error => {
+        if(error instanceof CustomError){
+            console.error(error.message);
+        }
+        else{
+            console.error("Failed to create project");
+        }
+    })
+
 })

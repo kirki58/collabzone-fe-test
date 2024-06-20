@@ -11,9 +11,9 @@
 <body>
     <div class="parent">
         <div class="top">
-            <a href="#" id="profileBtn"><img src="image.png" alt=""> Profile</a>
+            <a href="#" id="profileBtn"><img id="profileImg" src="image.png" alt=""> Profile</a>
             <a href="">Tasks</a>
-            <a href=""><i style="position: relative;top: 3px;" class="fa-solid fa-right-from-bracket"></i></a>
+            <a id="logoutBtn" href=""><i style="position: relative;top: 3px;" class="fa-solid fa-right-from-bracket"></i></a>
         </div>
 
         <div class="modal" id="modal">
@@ -40,7 +40,7 @@
                 <p><strong>(Change your PP)</strong> <i id ="imgSelectorBtn" class="fa-solid fa-pen-to-square"></i></p>
                 <form id="imageForm" style="display: none;" action="">
                     <input id="imgSelectorInput"style="margin: 0;padding: 0; display: none;" type="file" accept="image/*"">
-                    <input type="submit" value="Submit" required accept=".jpg,.jpeg,.png,.webp,.svg">
+                    <input type="submit" value="Submit" required accept=".jpg,.jpeg,.png,.svg,.gif,.bmp">
                 </form>
             </div>
         </div>
@@ -86,14 +86,14 @@
             <form class="left" action="" method="post" id = "joinForm">
                 <p>JOIN</p>
                 <input type="text" placeholder="Invite token" required>
-                <button id ="join_button">Sign In</button>
+                <button id ="join_button">Submit</button>
             </form>
         </div>
         <div class="create_project">
             <form class="right" action="" method="post" id = "createForm">
                 <p>CREATE</p>
-                <input type="text" placeholder="Project Name" required>
-                <button id ="create_button">Sign In</button>
+                <input id="projectName" type="text" placeholder="Project Name" required>
+                <button id ="create_button">Submit</button>
             </form>
         </div>
         <div class="tasks">

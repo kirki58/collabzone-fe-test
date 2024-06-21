@@ -4,6 +4,41 @@ import { CustomError } from "./custom_error.js";
 
 window.addEventListener("load", redirect_unvalidated)
 
+function addUser(userId, userName, imageUrl ,isAdmin){
+    var after;
+    if(isAdmin){
+        after = document.getElementById("adminsAfter");
+    }
+    else{
+        after = document.getElementById("collabsAfter");
+    }
+    var newUserDiv = document.createElement("div");
+    newUserDiv.className = "userDiv";
+    newUserDiv.innerHTML = `<span style="display: none;">${userId}</span><img src="${imageUrl}" alt=""><span>${userName}</span>`;
+    after.insertAdjacentElement("afterend", newUserDiv);
+}
+
+function getUserPicture(user){
+    var token = getCookie("token");
+    if (token == null) {
+        window.location.href = "http://localhost:5500/index.html";
+    }
+    return fetch("https://localhost:7217/api/images/" + user.id, {
+        method: "GET",
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => {
+        if(!response.ok){
+            return null;
+        }
+        return response.blob();
+    
+    })
+
+}
+
 window.addEventListener("load", async function() {
     var token = getCookie("token");
     if (token == null) {
@@ -25,14 +60,22 @@ window.addEventListener("load", async function() {
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        data.forEach(user => {
+            getUserPicture(user).then(blob => {
+                var img = URL.createObjectURL(blob);
+                if(img == null || img == "undefined"){
+                    img = "res/image.png";
+                }
+                addUser(user.id, user.name, img, true);
+            })
+        });
     })
     .catch(error => {
         if(error instanceof CustomError){
             console.log(error.message);
         }
         else{
-            console.log("An error occurred while getting users!");
+            console.log(error.message);
         }
     });
 
@@ -50,7 +93,17 @@ window.addEventListener("load", async function() {
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        data.forEach(user => {
+            getUserPicture(user).then(blob => {
+                if(blob == null){
+                    var img = "res/image.png";
+                    addUser(user.id, user.name, img, false);
+                    return;
+                }
+                var img = URL.createObjectURL(blob);
+                addUser(user.id, user.name, img, false);
+            })
+        });
     })
     .catch(error => {
         if(error instanceof CustomError){

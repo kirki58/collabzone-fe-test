@@ -3,6 +3,7 @@ import { getCookie } from './cookie.js';
 import { setCookie } from './cookie.js';
 import { GetDecodedToken } from './decode_token.js';
 import { CustomError } from './custom_error.js';
+import { deleteCookie } from './cookie.js';
 
 window.addEventListener('load', redirect_unvalidated);
 window.addEventListener('load', getProfileImage);
@@ -339,4 +340,103 @@ document.getElementById("createForm").addEventListener("submit", async function(
         }
     })
 
+})
+
+document.getElementById("joinForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    var token = getCookie("token");
+    if(token == null){
+        window.location.href = "http://localhost:5500/index.html";
+        return;
+    }
+    var user_id = (await GetDecodedToken()).sub;
+
+    var project_guid = document.getElementById("projectGuid").value;
+
+    var formData = new FormData();
+    formData.append("user_id", user_id);
+    formData.append("guid", project_guid);
+
+    await fetch("https://localhost:7217/api/projects/join/", {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
+        body: formData
+    })
+    .then(response => {
+        if(!response.ok){
+            throw new CustomError("Failed to join project");
+        }
+        alert("Joined project successfully");
+        window.location.reload();
+        return response.text();
+    })
+    .catch(error => {
+        alert("Failed to join project");
+        if(error instanceof CustomError){
+            console.error(error.message);
+        }
+        else{
+            console.error("Failed to join project");
+        }
+    })
+})
+
+async function GetProjects(){
+    var token = getCookie("token");
+    var user_id = (await GetDecodedToken()).sub;
+
+    return await fetch("https://localhost:7217/api/projects/user/" + user_id, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => {
+        switch(response.status){
+            case 401:
+                throw new CustomError("Unauthorized");
+            case 404:
+                throw new CustomError("No projects found");
+        }
+        return response.json();
+    })
+    .then(data => {
+        return data;
+    })
+    .catch(error => {
+        if(error instanceof CustomError){
+            console.error(error.message);
+        }
+        else{
+            console.error("Failed to get projects");
+        }
+    })
+}
+
+window.addEventListener('load', async function() {
+    var projects = await GetProjects();
+    if(projects == null){
+        return;
+    }
+    var projectView = document.querySelector(".projects");
+    for(var i = 0; i < projects.length; i++){
+        var project = projects[i];
+        projectView.innerHTML += `
+            <div class="project">
+                <a href="project.html?guid=${project.invite_guid}" ><img src="res/group.png" alt=""></a>
+                <p>${project.name}</p>
+            </div>
+        
+        `
+    }
+})
+
+document.getElementById("logoutBtn").addEventListener("click", function() {
+    if(getCookie("token") != null){
+        deleteCookie("token");
+    }
+    window.location.href = "http://localhost:5500/index.html";
 })

@@ -11,13 +11,13 @@
 <body>
     <div class="parent">
         <div class="top">
-            <a href="#" id="profileBtn"><img id="profileImg" src="image.png" alt=""> Profile</a>
+            <a href="#" id="profileBtn"><img id="profileImg" src="res/image.png" alt=""> Profile</a>
             <a href="">Tasks</a>
             <a id="logoutBtn" href=""><i style="position: relative;top: 3px;" class="fa-solid fa-right-from-bracket"></i></a>
         </div>
 
         <div class="modal" id="modal">
-            <i id="closeBtn" class="fa-solid fa-xmark"></i>
+            <i id="closeBtn" class="closeBtn fa-solid fa-xmark"></i>
             <div class="modal-content" id="modal-content">
                 <p><strong>Name: </strong> <span id="userName"></span> <i id="EditNameBtn" class="fa-solid fa-pen-to-square"></i></p>
                 <form id="nameForm" style="display: none;" action="">
@@ -46,46 +46,18 @@
         </div>
 
         <div class="projects">
+            <!--
             <div class="project">
-                <a href="" ><img src="image.png" alt=""></a>
+                <a href="" ><img src="res/group.png" alt=""></a>
                 <p>Project Name</p>
             </div>
-
-            <div class="project">
-                <a href="" ><img src="image.png" alt=""></a>
-                <p>Project Name</p>
-            </div>
-
-            <div class="project">
-                <a href="" ><img src="image.png" alt=""></a>
-                <p>Project Name</p>
-            </div>
-
-            <div class="project">
-                <a href="" ><img src="image.png" alt=""></a>
-                <p>Project Name</p>
-            </div>
-
-            <div class="project">
-                <a href="" ><img src="image.png" alt=""></a>
-                <p>Project Name</p>
-            </div>
-
-            <div class="project">
-                <a href="" ><img src="image.png" alt=""></a>
-                <p>Project Name</p>
-            </div>
-            
-            <div class="project">
-                <a href="" ><img src="image.png" alt=""></a>
-                <p>Project Name</p>
-            </div>
+            -->
         </div>
 
         <div class="join_project">
             <form class="left" action="" method="post" id = "joinForm">
                 <p>JOIN</p>
-                <input type="text" placeholder="Invite token" required>
+                <input id="projectGuid" type="text" placeholder="Invite token" required>
                 <button id ="join_button">Submit</button>
             </form>
         </div>

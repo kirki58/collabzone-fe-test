@@ -59,7 +59,7 @@
     border-radius: 10px;
     border: none;
 }
-#closeBtn{
+.closeBtn{
     font-size: 1.5em;
     cursor: pointer;
     color: #0D1B2A;

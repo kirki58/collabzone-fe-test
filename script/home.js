@@ -8,6 +8,72 @@ import { deleteCookie } from './cookie.js';
 window.addEventListener('load', redirect_unvalidated);
 window.addEventListener('load', getProfileImage);
 
+window.addEventListener('load', async function() {
+    var token = getCookie("token");
+    if(token == null){
+        window.location.href = "http://localhost:5500/index.html";
+        return;
+    }
+    var id = (await GetDecodedToken()).sub;
+    await this.fetch("https://localhost:7217/api/tasks/user/" + id, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => {
+        if(!response.ok){
+            throw new CustomError("Failed to get tasks");
+        }
+        return response.json();
+    })
+    .then(data => {
+        data.forEach(element => {
+            addTaskForUser(element);
+        });
+    })
+});
+
+async function addTaskForUser(element){
+    var remaining_days = Math.floor((new Date(element.due_at) - new Date()) / (1000 * 60 * 60 * 24)) + 1;;
+    var task = document.createElement("div");
+    task.classList.add("task");
+    
+    var name = getProjectName(element.given_at);
+    console.log(name);
+
+    task.innerHTML = `
+        <p><strong>From:</strong> <br> ${await getProjectName(element.given_at)}</p>
+        <p><strong>Task Header:</strong> <br> ${element.header}</p>
+        <p><strong>Task Description:</strong> <br> ${element.description}</p>
+        <p><strong>Task Deadline:</strong> <br> ${new Date(element.due_at).toDateString()} <br> <i>(${remaining_days} days)</i></p>
+    `
+    document.querySelector(".tasks").appendChild(task);
+}
+
+async function getProjectName(id){
+    var token = getCookie("token");
+    if(token == null){
+        window.location.href = "http://localhost:5500/index.html";
+        return;
+    }
+    return await fetch("https://localhost:7217/api/projects/id/" + id, {
+        method: "GET",
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => {
+        if(!response.ok){
+            return null;
+        }
+        return response.json();
+    })
+    .then(data => {
+        return data.name;
+    })
+}
+
 
 $(document).ready(function() {
     var modal = $("#modal");

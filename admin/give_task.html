@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Give Task | CollabZone</title>
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/give_task.css">
+</head>
+<body>
+    <form action="" id="giveTaskForm">
+        <h1>Give Task</h1>
+        <br>
+        <label for="header">Task Header</label>
+        <input type="text" name="header" id="header" required>
+        <br>
+        <label for="desc">Task Description</label>
+        <textarea name="desc" id="desc" maxlength="1024" required></textarea>
+        <br>
+        <label for="days_due">Given time (in days)</label>
+        <input name="days_due" type="number" id="days" min="1" required>
+        <br>
+        <input type="submit" id="">
+    </form>
+    <script type="module" src="../script/task.js"></script>
+    <script type="module" src="../script/custom_error.js"></script>
+    <script type="module" src="../script/cookie.js"></script>
+    <script type="module" src="../script/decode_token.js"></script>
+</body>
+</html>

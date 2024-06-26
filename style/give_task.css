@@ -1,0 +1,35 @@
+*{
+    color: #0D1B2A !important;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: 80vh;
+    width: 80vw;
+    margin-top: 10vh;
+    margin-left: 10vw;
+
+    border-radius: 70px;
+    background: linear-gradient(145deg, #f0f1ec, #cacbc7);
+    box-shadow:  6px 6px 0px #bcbdba,
+    -6px -6px 0px #ffffff;
+}
+form>h1{
+    color: #0D1B2A;
+    font-size: 3em;
+}
+
+form>*{
+    margin: 10px;
+}
+form>input, form>textarea{
+    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+
+    font-size: 1.2em;
+}

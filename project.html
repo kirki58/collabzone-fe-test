@@ -14,7 +14,7 @@
     <div class="parent">
         <div class="top">
             <a href="#" id="profileBtn"><img id="profileImg" src="res/image.png" alt=""> Profile</a>
-            <a href="#">Tasks</a>
+            <a href="#" id= "tasksBtn">Tasks</a>
             <a href="#" id="projectInfoBtn">Project</a>
         </div>
 
@@ -44,6 +44,25 @@
                     <input id="imgSelectorInput"style="margin: 0;padding: 0; display: none;" type="file" accept="image/*"">
                     <input type="submit" value="Submit" required accept=".jpg,.jpeg,.png,.svg,.gif,.bmp">
                 </form>
+            </div>
+        </div>
+
+        <div class="modal" id="tasksModal">
+            <i id="closeBtn3" class="closeBtn fa-solid fa-xmark"></i>
+            
+            <div class="modal-content" style="overflow-y: scroll !important;" id="tasks">
+                <!-- <div class="task">
+                    <span style="display: none;">(taskid)</span>
+                    <p><strong>Task: </strong> <span id="header">header</span></p>
+                    <p><strong>Given to: </strong> <span id="givenTo">user</span></p>
+                    <p><strong>Remaining time: </strong> <span id="remaining">2</span> days</p>
+                    <i class="extendTime fa-solid fa-calendar-plus"></i>
+                    <i class="deleteTask fa-solid fa-trash"></i>
+                    <form action="" class="extendTimeForm" style="display: none;">
+                        <input type="number" min="1" required>
+                        <input class="taskExtendSubmitBtn" type="submit" value="Submit">
+                    </form>
+                </div> -->
             </div>
         </div>
 
@@ -78,6 +97,17 @@
 
             <p style="margin-bottom: 5px;">Collabs</p>
             <hr id="collabsAfter" style="margin-bottom: 20px;">
+
+            <!-- <div class="userDiv" id="userx">
+                <span style="display: none;">(userid here)</span>
+                <img src="res/image.png" alt="">
+                <span>Username</span>
+                <div class="administration">
+                    <a class="banBtn" href="#">Ban</a>
+                    <a class="changeAuthBtn" href="#">Change Auth</a>
+                    <a class="giveTaskBtn" href="#">Give Task</a>
+                </div>
+            </div> -->
         </div>
         <div class="chat"></div>
     </div> 
@@ -88,6 +118,7 @@
     <script type="module" src="script/cookie.js"></script>
     <script type="module" src="script/decode_token.js"></script>
     <script type="module" src="script/custom_error.js"></script>
+    <script type="module" src="script/task.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>

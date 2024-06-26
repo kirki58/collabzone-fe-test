@@ -43,4 +43,23 @@
     height: 100%;
     background-color: #415A77;
 }
+
+.administration{
+    display: none;
+}
+.administration>a{
+    text-decoration: none;
+}
+.administration>a:hover{
+    color: rgba(255, 255, 255, 0.507);
+    cursor: pointer;
+}
+
+.task>i:hover{
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.507) !important;
+}
+.task{
+    padding:80px;
+}
     

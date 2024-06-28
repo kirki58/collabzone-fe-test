@@ -1,10 +1,10 @@
 .parent {
     display: grid;
-    grid-template-columns: 0.5fr repeat(8, 1fr);
-    grid-template-rows: 0.4fr repeat(5, 1fr);
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: 0.4fr repeat(4, 1fr) 0.4fr;
     grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    }
+    grid-row-gap: 0px; 
+}
     
 .users {
     grid-area: 1 / 8 / 7 / 10;
@@ -36,7 +36,7 @@
     left: 20px;
 }
 .chat {
-     grid-area: 2 / 1 / 7 / 8;
+     grid-area: 2 / 1 / 6 / 8;
 }
 .top { 
     grid-area: 1 / 1 / 2 / 8; 
@@ -62,4 +62,39 @@
 .task{
     padding:80px;
 }
-    
+
+.chat{
+    overflow-y: scroll;
+}
+.message{
+    background-color: #203f63;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    margin: 10px;
+}
+.message>span{
+    position: relative;
+    bottom: 20px;
+    left: 20px;
+}
+.message>img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.messageForm{
+    grid-area: 6 / 1 / 7 / 8;
+    z-index: 2;
+}
+.messageForm>form{
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;
+}
+.messageForm>form>input{
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    color: black;
+}

@@ -2,6 +2,7 @@ import { redirect_unvalidated } from "./redirect_unvalidated.js";
 import { getCookie } from "./cookie.js";
 import { CustomError } from "./custom_error.js";
 import { GetDecodedToken } from "./decode_token.js";
+import { refreshGuid } from "./project_chat.js";
 
 window.addEventListener("load", redirect_unvalidated)
 
@@ -45,7 +46,7 @@ window.addEventListener('load', async function(){
     })
 });
 
-async function getUserName(user_id){
+export async function getUserName(user_id){
     var token = getCookie('token');
     if(token == null){
         window.location.href = 'http://localhost:5500/index.html'
@@ -154,7 +155,6 @@ function getUserPicture(user){
         return response.blob();
     
     })
-
 }
 
 window.addEventListener("load", async function() {
@@ -369,7 +369,8 @@ document.getElementById("RefreshGuidBtn").addEventListener("click", async functi
     })
     .then(data => {
         alert("Project GUID refreshed successfully.");
-        window.location.href = "http://localhost:5500/project.html?guid=" + data.guid;
+        refreshGuid(guid, data.guid);
+        // window.location.href = "http://localhost:5500/project.html?guid=" + data.guid;
     })
     .catch(error => {
         if(error instanceof CustomError){
@@ -595,7 +596,7 @@ document.querySelector(".users").addEventListener("click", async function(event)
     }
 })
 
-async function getProjectId (guid){
+export async function getProjectId (guid){
     var token = getCookie("token");
     if (token == null) {
         window.location.href = "http://localhost:5500/index.html";

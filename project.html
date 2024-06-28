@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style/home.css">
     <link rel="stylesheet" href="style/project.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js" integrity="sha512-7rhBJh1om/W5Ztx7WiYOR9h2wlSaTmPyQMoHFtbT/FVNIA12y6S6I8HY9mrBS1uJ3dSU/R3qaSAXsGYuRjMDxg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <div class="parent">
@@ -109,9 +109,22 @@
                 </div>
             </div> -->
         </div>
-        <div class="chat"></div>
+        <div class="chat" id="messages">
+            <!-- <div class="message">
+                <img src="res/image.png" alt="">
+                <span>Username</span>
+                <p>Message</p>
+            </div> -->
+        </div>
+        <div class="messageForm"> 
+            <form action="" id="messageForm">
+                <input type="text" required id="messageInput">
+                <input type="submit" value="Send">
+            </form>
+        </div> 
     </div> 
 
+    <script type="module" src="script/project_chat.js"></script>
     <script type="module" src="script/project.js"></script>
     <script type="module" src="script/home.js"></script>
     <script type="module" src="script/redirect_unvalidated.js"></script>

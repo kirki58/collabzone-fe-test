@@ -197,43 +197,47 @@ window.addEventListener("load", async function() {
         else{
             console.log(error.message);
         }
-    });
-
-    // Get Collabs
-    await fetch("https://localhost:7217/api/projects/collabs/" + guid , {
-        method: "GET",
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
     })
-    .then(response => {
-        if(!response.ok){
-            throw new CustomError("There was an error getting users!");
-        }
-        return response.json();
-    })
-    .then(data => {
-        data.forEach(user => {
-            getUserPicture(user).then(blob => {
-                if(blob == null){
-                    var img = "res/image.png";
+    .finally(async () => {
+        // Get Collabs
+        await fetch("https://localhost:7217/api/projects/collabs/" + guid , {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+        .then(response => {
+            if(!response.ok){
+                throw new CustomError("There was an error getting users!");
+            }
+            return response.json();
+        })
+        .then(data => {
+            data.forEach((user, index) => {
+                getUserPicture(user).then(blob => {
+                    if(blob == null){
+                        var img = "res/image.png";
+                        addUser(user.id, user.name, img, false);
+                        return;
+                    }
+                    var img = URL.createObjectURL(blob);
                     addUser(user.id, user.name, img, false);
-                    return;
-                }
-                var img = URL.createObjectURL(blob);
-                addUser(user.id, user.name, img, false);
+                    
+                    if(index === data.length - 1){
+                        this.window.dispatchEvent(new Event("usersLoaded"));
+                    }
+                })
             })
-        });
+        })
+        .catch(error => {
+            if(error instanceof CustomError){
+                console.log(error.message);
+            }
+            else{
+                console.log("An error occurred while getting users!");
+            }
+        })
     })
-    .catch(error => {
-        if(error instanceof CustomError){
-            console.log(error.message);
-        }
-        else{
-            console.log("An error occurred while getting users!");
-        }
-    });
-
 })
 
 //Load project info

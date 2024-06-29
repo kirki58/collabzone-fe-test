@@ -3,15 +3,6 @@ import {GetDecodedToken} from './decode_token.js';
 import {getProjectId} from './project.js';
 import { getUserName } from './project.js';
 
-class SentMessage{
-    constructor(_user_name, _user_image, _message, _timestamp){
-        this.user_name = _user_name;
-        this.user_image = _user_image;
-        this.message = _message;
-        this.timestamp = _timestamp;
-    }
-}
-
 // Establish a connection to the SignalR hub
 let token = getCookie("token");
 if(token == null){
@@ -35,25 +26,44 @@ connection.start().then(function () {
 connection.on("ReceiveMessage", async function (id, message) {
     saveMessage(projectId, id, message);
 
-    var name = await getUserName(id);
-    getPictureByUserId(id).then(blob => {
-        if(blob == null){
-            addMessage(name, "res/image.png", message);
-            return;
-        }
-        var img = URL.createObjectURL(blob);
+    var userdiv = document.getElementById("userDiv"+id);
+    if(userdiv == null){
+        var name = "Unknown";
+        var img = "res/image.png";
         addMessage(name, img, message);
-    });
+        return;
+    }
+    var name = userdiv.querySelectorAll("span")[1].innerText;
+    var img = userdiv.querySelector("img").src;
+    addMessage(name, img, message);
 });
-
+window.addEventListener("usersLoaded",function (){
+    console.warn("usersLoaded trigger");
+    var userdiv = document.getElementById("userDiv45");
+    var name = userdiv.querySelectorAll("span")[1].innerText;
+    var img = userdiv.querySelector("img").src;
+    console.warn(name);
+    console.warn(img);
+})
 //Join project
 function joinProject(){
     connection.invoke("JoinProject", projectGuid)
     .then(() => {
-        const messages = loadMessages(projectId);
-        messages.forEach(message => {
-            console.log(message);
-        });
+        window.addEventListener("usersLoaded", function(){
+            var messages = loadMessages(projectId);
+            messages.forEach(message => {
+                var userdiv = document.getElementById("userDiv"+message.userId);
+                if(userdiv == null){
+                    var name = "Unknown";
+                    var img = "res/image.png";
+                    addMessage(name, img, message.message);
+                    return;
+                }
+                var name = userdiv.querySelectorAll("span")[1].innerText;
+                var img = userdiv.querySelector("img").src;
+                addMessage(name, img, message.message);
+            });
+        })
     })
     .catch(err => console.error(err.toString()));
 }
@@ -98,12 +108,13 @@ connection.onclose(leaveProject);
 
 //function to menage local storage for project chat
 
-function saveMessage(projectId, userId, message){
+async function saveMessage(projectId, userId, message){
     const key = projectId + "_messages";
     var messages = JSON.parse(localStorage.getItem(key));
     if(messages == null){
         messages = [];
     }
+
     var newMessage = {userId, message, timestamp: new Date().toISOString()};
     messages.push(newMessage);
     localStorage.setItem(key, JSON.stringify(messages)); 
@@ -118,6 +129,7 @@ function loadMessages(projectId){
     }
     return messages;
 }
+//Front-end logic
 
 function addMessage(_user_name, _user_image, _message){
     const messagesDiv = document.getElementById("messages");
@@ -132,6 +144,7 @@ function addMessage(_user_name, _user_image, _message){
     messagesDiv.appendChild(messageDiv);
 }
 
+// helper function
 async function getPictureByUserId(_user_id){
     var token = getCookie("token");
     if (token == null) {
@@ -151,17 +164,6 @@ async function getPictureByUserId(_user_id){
     
     })
 }
-
-// save every user name and user image in local storage
-window.addEventListener("load", async function(){
-    var token = getCookie("token");
-    if(token == null){
-        window.location.href = "http://localhost:5500/index.html";
-        return;
-    }
-    
-});
-
 
 
 
